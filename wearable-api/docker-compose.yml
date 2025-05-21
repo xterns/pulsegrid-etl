@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  listener:
+    build: ./listener
+    container_name: wearable_listener
+    ports:
+      - "8000:8000"
+    networks:
+      - wearable-net
+
+  emitter:
+    build: ./emitter
+    container_name: wearable_emitter
+    depends_on:
+      - listener
+    networks:
+      - wearable-net
+
+networks:
+  wearable-net:
+    driver: bridge
+
